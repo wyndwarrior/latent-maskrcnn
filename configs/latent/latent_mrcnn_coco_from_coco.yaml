@@ -1,0 +1,8 @@
+_BASE_: "../COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_1x.yaml"
+OUTPUT_DIR: /nfs/andrew/mrcnn/logs/latent_mrcnn_coco_from_coco
+MODEL:
+  WEIGHTS: "detectron2://COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_1x/137260431/model_final_a54504.pkl"
+  META_ARCHITECTURE: "LatentRCNN"
+DATASETS:
+  TRAIN: ("coco_2017_train",)
+  TEST: ("coco_2017_val",)

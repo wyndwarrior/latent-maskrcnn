@@ -1,0 +1,32 @@
+_BASE_: "../COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_1x.yaml"
+OUTPUT_DIR: /nfs/andrew/mrcnn/logs/latent_toy_kl
+MODEL:
+  META_ARCHITECTURE: "LatentRCNN"
+#  WEIGHTS: "/nfs/andrew/mrcnn/logs/latent_toy_kl/2021-05-10-22-16-35/model_0004999.pth"
+#  WEIGHTS: "/nfs/andrew/mrcnn/logs/latent_uncertainty_kl/2021-05-09-03-06-14/model_final.pth"
+  WEIGHTS: "/nfs/andrew/mrcnn/logs/latent_toy_kl/2021-05-11-01-20-20/model_final.pth"
+  KL:
+#    TARGET: 0.01
+#    EMA: 0.995
+    CONST_SCALE: 0.002
+    LOSS: True
+    Z_DIM: 64
+DATASETS:
+  TRAIN:
+    - uncertainty_train
+  TEST:
+    - uncertainty_train
+INPUT:
+  MASK_FORMAT: bitmask
+  MIN_SIZE_TRAIN: (800, )
+  RANDOM_FLIP: horizontal
+SOLVER:
+  BASE_LR: 0.02
+  STEPS: (5000, 7000)
+  MAX_ITER: 9000
+  CHECKPOINT_PERIOD: 1000
+AGREEMENT:
+  THRESHOLD: 0.9
+  NSAMPLES: 8
+  AUGMENTATIONS: ["none", "fliph"]
+  MIN_AREA: 0.3

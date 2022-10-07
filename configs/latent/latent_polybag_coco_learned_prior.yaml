@@ -1,0 +1,14 @@
+_BASE_: "../COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_1x.yaml"
+OUTPUT_DIR: /nfs/andrew/mrcnn/logs/latent_polybag_coco_learned_prior
+MODEL:
+  META_ARCHITECTURE: "LatentRCNN"
+  WEIGHTS: "detectron2://COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x/137849600/model_final_f10217.pkl"
+  KL:
+    LEARNED_PRIOR: True
+DATASETS:
+  TRAIN:
+    - polybag_train
+  TEST:
+    - polybag_val
+INPUT:
+  MASK_FORMAT: bitmask

@@ -1,0 +1,18 @@
+# The base config initializes from coco
+_BASE_: "../Cityscapes/mask_rcnn_R_50_FPN.yaml"
+OUTPUT_DIR: /nfs/andrew/mrcnn/logs/latent_cityscapes_kl
+MODEL:
+  WEIGHTS: /nfs/andrew/mrcnn/logs/latent_cityscapes/2021-05-10-19-28-48/model_final.pth
+  META_ARCHITECTURE: "LatentRCNN"
+  KL:
+    CONST_SCALE: 1e-5
+    LOSS: True
+INPUT:
+  MASK_FORMAT: bitmask
+DATASETS:
+  TRAIN:
+    - cityscapes_in_coco_format_train
+  TEST:
+    - cityscapes_in_coco_format_val
+AGREEMENT:
+  NSAMPLES: 0

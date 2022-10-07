@@ -1,0 +1,10 @@
+# The base config initializes from coco
+_BASE_: "../Cityscapes/mask_rcnn_R_50_FPN.yaml"
+OUTPUT_DIR: /nfs/nikhil/logs/detectron2/cityscapes_from_coco
+INPUT:
+  MASK_FORMAT: bitmask
+DATASETS:
+  TRAIN:
+    - cityscapes_in_coco_format_train
+  TEST:
+    - cityscapes_in_coco_format_val

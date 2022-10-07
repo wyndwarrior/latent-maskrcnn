@@ -1,0 +1,27 @@
+# The base config initializes from coco
+_BASE_: "../Cityscapes/mask_rcnn_R_50_FPN.yaml"
+OUTPUT_DIR: /nfs/andrew/mrcnn/logs/latent_cityscapes_coco_learned_prior
+MODEL:
+  META_ARCHITECTURE: "LatentRCNN"
+  WEIGHTS: "/nfs/andrew/mrcnn/logs/latent_cityscapes_coco_learned_prior/2021-05-17-22-28-18/model_final.pth"
+  KL:
+    LEARNED_PRIOR: True
+    CONST_SCALE: 1e-5
+    LOSS: True
+INPUT:
+  MASK_FORMAT: bitmask
+DATASETS:
+  TRAIN:
+    - cityscapes_in_coco_format_train
+  TEST:
+    - cityscapes_in_coco_format_val
+AGREEMENT:
+  THRESHOLD: 0.7
+  NSAMPLES: 4
+  AUGMENTATIONS: ["none", "fliph"]
+  MIN_AREA: 0.1
+SOLVER:
+  BASE_LR: 0.0002
+  STEPS: (29999,)
+  MAX_ITER: 30000
+  CHECKPOINT_PERIOD: 2000

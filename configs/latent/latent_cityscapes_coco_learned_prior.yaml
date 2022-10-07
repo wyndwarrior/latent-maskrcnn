@@ -1,0 +1,16 @@
+# The base config initializes from coco
+_BASE_: "../Cityscapes/mask_rcnn_R_50_FPN.yaml"
+OUTPUT_DIR: /nfs/andrew/mrcnn/logs/latent_cityscapes_coco_learned_prior
+MODEL:
+  META_ARCHITECTURE: "LatentRCNN"
+  KL:
+    LEARNED_PRIOR: True
+INPUT:
+  MASK_FORMAT: bitmask
+DATASETS:
+  TRAIN:
+    - cityscapes_in_coco_format_train
+  TEST:
+    - cityscapes_in_coco_format_val
+AGREEMENT:
+  NSAMPLES: 0

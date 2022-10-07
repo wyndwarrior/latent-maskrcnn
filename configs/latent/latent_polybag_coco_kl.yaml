@@ -1,0 +1,20 @@
+_BASE_: "../COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_1x.yaml"
+OUTPUT_DIR: /nfs/andrew/mrcnn/logs/latent_polybag_coco_kl
+MODEL:
+  META_ARCHITECTURE: "LatentRCNN"
+  WEIGHTS: "/nfs/andrew/mrcnn/logs/latent_polybag_coco/2021-05-11-23-14-38/model_final.pth"
+  KL:
+    CONST_SCALE: 1e-5
+    LOSS: True
+DATASETS:
+  TRAIN:
+    - polybag_train
+  TEST:
+    - polybag_val
+INPUT:
+  MASK_FORMAT: bitmask
+SOLVER:
+  BASE_LR: 0.0002
+  STEPS: (8999,)
+  MAX_ITER: 9000
+  CHECKPOINT_PERIOD: 2000

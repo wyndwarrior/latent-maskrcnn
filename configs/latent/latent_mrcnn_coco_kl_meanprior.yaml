@@ -1,0 +1,18 @@
+_BASE_: "../COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_1x.yaml"
+OUTPUT_DIR: /nfs/andrew/mrcnn/logs/latent_mrcnn_coco
+MODEL:
+  META_ARCHITECTURE: "LatentRCNN"
+  WEIGHTS: "/nfs/andrew/mrcnn/logs/latent_mrcnn_coco/2021-05-14-22-07-41/model_final.pth"
+  KL:
+    CONST_SCALE: 1e-5
+    LOSS: True
+DATASETS:
+  TRAIN: ("coco_2017_train",)
+  TEST: ("coco_2017_val",)
+SOLVER:
+  BASE_LR: 0.0002
+  STEPS: (8999,)
+  MAX_ITER: 9000
+  CHECKPOINT_PERIOD: 2000
+AGREEMENT:
+  NSAMPLES: 0

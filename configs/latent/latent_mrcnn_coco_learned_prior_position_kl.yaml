@@ -1,0 +1,20 @@
+_BASE_: "../COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_1x.yaml"
+OUTPUT_DIR: /nfs/andrew/mrcnn/logs/latent_mrcnn_coco_learned_prior_position_kl
+MODEL:
+  WEIGHTS: /nfs/andrew/mrcnn/logs/latent_mrcnn_coco_learned_prior_position/2021-05-19-22-59-20/model_final.pth
+  META_ARCHITECTURE: "LatentRCNN"
+  KL:
+    LEARNED_PRIOR: True
+    POSITION: True
+    CONST_SCALE: 1e-5
+    LOSS: True
+DATASETS:
+  TRAIN: ("coco_2017_train",)
+  TEST: ("coco_2017_val",)
+AGREEMENT:
+  NSAMPLES: 0
+SOLVER:
+  BASE_LR: 0.0002
+  STEPS: (29999,)
+  MAX_ITER: 30000
+  CHECKPOINT_PERIOD: 2000
